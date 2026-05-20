@@ -3,6 +3,7 @@
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status: Production](https://img.shields.io/badge/Status-Production-brightgreen.svg)]()
+[![CI](https://github.com/ChenneyZhuang/smart-search-system/actions/workflows/ci.yml/badge.svg)](https://github.com/ChenneyZhuang/smart-search-system/actions/workflows/ci.yml)
 
 > Multi-engine concurrent search + captcha detection + deep website crawling — evolved through 9 phases of optimization.
 
