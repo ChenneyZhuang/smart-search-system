@@ -1,0 +1,186 @@
+{
+  "websites": {
+    "indeed_canberra_analyst": {
+      "name": "Indeed - Data Analyst Canberra",
+      "url": "https://au.indeed.com/jobs?q=data+analyst&l=Canberra+ACT",
+      "type": "dynamic",
+      "difficulty": "medium",
+      "allow_deep_crawl": true,
+      "deep_crawl_config": {
+        "max_pages": 20,
+        "max_depth": 3,
+        "crawl_detail_pages": true,
+        "site_type": "indeed",
+        "pagination_patterns": ["start={}", "page={}", "&p={}"],
+        "job_detail_selectors": [".jcs-JobTitle", "a[data-jk]"],
+        "list_page_selectors": [".job_seen_beacon"],
+        "ignore_patterns": ["login", "signup", "employer"]
+      },
+      "metadata": {
+        "category": "data-analyst",
+        "location": "Canberra",
+        "priority": "high"
+      }
+    },
+    
+    "indeed_canberra_developer": {
+      "name": "Indeed - Software Developer Canberra",
+      "url": "https://au.indeed.com/jobs?q=software+developer&l=Canberra+ACT",
+      "type": "dynamic",
+      "difficulty": "medium",
+      "allow_deep_crawl": true,
+      "deep_crawl_config": {
+        "max_pages": 15,
+        "max_depth": 3,
+        "crawl_detail_pages": true,
+        "site_type": "indeed",
+        "pagination_patterns": ["start={}", "page={}", "&p={}"],
+        "job_detail_selectors": [".jcs-JobTitle", "a[data-jk]"],
+        "list_page_selectors": [".job_seen_beacon"],
+        "ignore_patterns": ["login", "signup", "employer"]
+      },
+      "metadata": {
+        "category": "software-development",
+        "location": "Canberra",
+        "priority": "high"
+      }
+    },
+    
+    "seek_canberra_analyst": {
+      "name": "Seek - Data Analyst Canberra",
+      "url": "https://www.seek.com.au/data-analyst-jobs/in-All-Canberra-ACT",
+      "type": "dynamic",
+      "difficulty": "medium",
+      "allow_deep_crawl": true,
+      "deep_crawl_config": {
+        "max_pages": 15,
+        "max_depth": 2,
+        "crawl_detail_pages": true,
+        "site_type": "seek",
+        "pagination_patterns": ["page={}", "offset={}"],
+        "job_detail_selectors": ["[data-automation='jobTitle']"],
+        "list_page_selectors": ["[data-automation='normalJob']"],
+        "ignore_patterns": ["account", "profile", "login"]
+      },
+      "metadata": {
+        "category": "data-analyst",
+        "location": "Canberra",
+        "priority": "high"
+      }
+    },
+    
+    "seek_canberra_developer": {
+      "name": "Seek - Software Developer Canberra",
+      "url": "https://www.seek.com.au/software-developer-jobs/in-All-Canberra-ACT",
+      "type": "dynamic",
+      "difficulty": "medium",
+      "allow_deep_crawl": true,
+      "deep_crawl_config": {
+        "max_pages": 15,
+        "max_depth": 2,
+        "crawl_detail_pages": true,
+        "site_type": "seek",
+        "pagination_patterns": ["page={}", "offset={}"],
+        "job_detail_selectors": ["[data-automation='jobTitle']"],
+        "list_page_selectors": ["[data-automation='normalJob']"],
+        "ignore_patterns": ["account", "profile", "login"]
+      },
+      "metadata": {
+        "category": "software-development",
+        "location": "Canberra",
+        "priority": "high"
+      }
+    },
+    
+    "aps_canberra_analyst": {
+      "name": "APS Jobs - Data Analyst Canberra",
+      "url": "https://www.apsjobs.gov.au/s/search-results?keywords=data+analyst&location=Canberra",
+      "type": "static",
+      "difficulty": "easy",
+      "allow_deep_crawl": true,
+      "deep_crawl_config": {
+        "max_pages": 10,
+        "max_depth": 2,
+        "crawl_detail_pages": true,
+        "site_type": "aps",
+        "pagination_patterns": ["start={}", "page={}"],
+        "job_detail_selectors": [".job-title", ".job-link"],
+        "list_page_selectors": [".search-result"],
+        "ignore_patterns": ["login", "register"]
+      },
+      "metadata": {
+        "category": "data-analyst",
+        "location": "Canberra",
+        "priority": "medium"
+      }
+    },
+    
+    "aps_canberra_developer": {
+      "name": "APS Jobs - Software Developer Canberra",
+      "url": "https://www.apsjobs.gov.au/s/search-results?keywords=software+developer&location=Canberra",
+      "type": "static",
+      "difficulty": "easy",
+      "allow_deep_crawl": true,
+      "deep_crawl_config": {
+        "max_pages": 10,
+        "max_depth": 2,
+        "crawl_detail_pages": true,
+        "site_type": "aps",
+        "pagination_patterns": ["start={}", "page={}"],
+        "job_detail_selectors": [".job-title", ".job-link"],
+        "list_page_selectors": [".search-result"],
+        "ignore_patterns": ["login", "register"]
+      },
+      "metadata": {
+        "category": "software-development",
+        "location": "Canberra",
+        "priority": "medium"
+      }
+    },
+    
+    "graduate_careers_analyst": {
+      "name": "Graduate Careers - Data Analyst",
+      "url": "https://www.graduatecareers.com.au/jobs/search?q=data+analyst",
+      "type": "static",
+      "difficulty": "easy",
+      "allow_deep_crawl": true,
+      "deep_crawl_config": {
+        "max_pages": 8,
+        "max_depth": 2,
+        "crawl_detail_pages": true,
+        "site_type": "generic",
+        "pagination_patterns": ["page={}", "start={}"],
+        "job_detail_selectors": [".job-title", "a[href*='job']"],
+        "list_page_selectors": [".job-item", ".listing"],
+        "ignore_patterns": ["login", "signup"]
+      },
+      "metadata": {
+        "category": "data-analyst",
+        "audience": "graduate",
+        "priority": "medium"
+      }
+    }
+  },
+  
+  "configuration": {
+    "deep_crawl_enabled_by_default": true,
+    "fallback_to_shallow_crawl": true,
+    "enable_performance_monitoring": true,
+    "save_crawl_statistics": true,
+    "default_max_pages": 20,
+    "default_max_depth": 3,
+    "default_timeout_seconds": 30
+  },
+  
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-04-15",
+    "description": "深度爬取网站配置 - 岗位扫描系统专用",
+    "author": "Hermes Agent",
+    "total_websites": 7,
+    "websites_by_category": {
+      "data-analyst": 4,
+      "software-development": 3
+    }
+  }
+}

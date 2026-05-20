@@ -1,0 +1,128 @@
+{
+  "deep_crawl_defaults": {
+    "max_depth": 2,
+    "max_pages": 15,
+    "max_concurrent": 3,
+    "request_timeout": 45.0,
+    "request_delay": {
+      "min": 1.0,
+      "max": 3.0
+    },
+    "respect_robots": true,
+    "enable_sitemap": true,
+    "follow_external_links": false,
+    "crawl_detail_pages": true,
+    "enable_caching": true,
+    "user_agent_rotation": true,
+    "random_delay": true,
+    "min_content_length": 100,
+    "max_content_similarity": 0.8,
+    "save_html": false,
+    "save_text": true,
+    "output_dir": "./deep_crawl_output"
+  },
+  
+  "site_type_strategies": {
+    "indeed": {
+      "pagination_patterns": ["start={}", "page={}", "&p={}", "jobs?start={}"],
+      "job_detail_selectors": [".jcs-JobTitle", "a[data-jk]", "[data-jk]", ".jobTitle"],
+      "list_page_selectors": [".job_seen_beacon", ".result", ".jobsearch-SerpJobCard"],
+      "ignore_patterns": ["login", "signup", "employer", "resume", "account"],
+      "content_selectors": {
+        "title": ".jobsearch-JobInfoHeader-title",
+        "company": ".companyOverviewLink",
+        "location": ".jobsearch-JobInfoHeader-subtitle",
+        "description": "#jobDescriptionText"
+      },
+      "difficulty": "medium",
+      "recommended_timeout": 45.0,
+      "recommended_max_pages": 20
+    },
+    
+    "seek": {
+      "pagination_patterns": ["page={}", "offset={}", "?page={}"],
+      "job_detail_selectors": ["[data-automation='jobTitle']", "[data-automation='job-detail-link']", "._1p3-6f9"],
+      "list_page_selectors": ["[data-automation='normalJob']", "[data-automation='premiumJob']", "article[data-search-sol-meta]"],
+      "ignore_patterns": ["account", "profile", "login", "signin", "register"],
+      "content_selectors": {
+        "title": "h1[data-automation='job-detail-title']",
+        "company": "[data-automation='advertiser-name']",
+        "location": "[data-automation='job-detail-location']",
+        "description": "[data-automation='jobAdDetails']"
+      },
+      "difficulty": "medium",
+      "recommended_timeout": 40.0,
+      "recommended_max_pages": 15
+    },
+    
+    "aps": {
+      "pagination_patterns": ["start={}", "page={}", "?start={}"],
+      "job_detail_selectors": [".job-title", ".job-link", "a.job-title"],
+      "list_page_selectors": [".search-result", ".job-item", ".result-item"],
+      "ignore_patterns": ["login", "register", "account", "signup"],
+      "content_selectors": {
+        "title": ".job-title",
+        "agency": ".agency-name",
+        "location": ".job-location",
+        "description": ".job-description"
+      },
+      "difficulty": "easy",
+      "recommended_timeout": 30.0,
+      "recommended_max_pages": 10
+    },
+    
+    "generic": {
+      "pagination_patterns": ["page={}", "p={}", "start={}", "offset={}", "?page={}"],
+      "job_detail_selectors": [".job-title", ".job-link", "[href*='job']", "[href*='career']"],
+      "list_page_selectors": [".job-item", ".job-listing", ".vacancy", ".position"],
+      "ignore_patterns": ["login", "signup", "register", "account", "profile"],
+      "content_selectors": {
+        "title": "h1, h2",
+        "company": ".company, .employer",
+        "location": ".location, .address",
+        "description": ".description, .content"
+      },
+      "difficulty": "easy",
+      "recommended_timeout": 30.0,
+      "recommended_max_pages": 20
+    }
+  },
+  
+  "performance_optimization": {
+    "connection_pool_size": 10,
+    "max_retries": 3,
+    "retry_delay_base": 2.0,
+    "cache_ttl_minutes": 60,
+    "memory_limit_mb": 512,
+    "disk_cache_enabled": true,
+    "disk_cache_dir": "./cache"
+  },
+  
+  "monitoring": {
+    "enable_real_time_monitoring": true,
+    "log_level": "INFO",
+    "save_crawl_logs": true,
+    "log_retention_days": 7,
+    "alert_on_failure": false,
+    "alert_threshold_failure_rate": 0.5
+  },
+  
+  "compliance": {
+    "respect_robots_txt": true,
+    "max_requests_per_minute": 30,
+    "min_delay_between_requests": 1.0,
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "additional_user_agents": [
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0",
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    ]
+  },
+  
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-04-15",
+    "description": "深度爬取默认配置 - 用于岗位扫描系统",
+    "author": "Hermes Agent"
+  }
+}

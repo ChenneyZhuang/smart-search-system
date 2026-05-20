@@ -1,0 +1,245 @@
+{
+  "strategy_overrides": {
+    "indeed": {
+      "crawler_type": "adaptive",
+      "initial_timeout": 45.0,
+      "retry_strategy": "exponential_backoff",
+      "max_retries": 3,
+      "delay_between_requests": {
+        "min": 2.0,
+        "max": 5.0
+      },
+      "anti_detection": {
+        "rotate_user_agents": true,
+        "randomize_delays": true,
+        "use_proxies": false,
+        "respect_robots_txt": true,
+        "limit_requests_per_minute": 20
+      },
+      "content_extraction": {
+        "use_playwright_for_dynamic": true,
+        "fallback_to_static": true,
+        "extract_patterns": [
+          "job_title",
+          "company_name",
+          "location",
+          "salary",
+          "description",
+          "requirements"
+        ],
+        "clean_html": true,
+        "normalize_text": true
+      },
+      "performance": {
+        "max_concurrent_requests": 3,
+        "cache_responses": true,
+        "cache_ttl_minutes": 60,
+        "compress_responses": true
+      }
+    },
+    
+    "seek": {
+      "crawler_type": "playwright_simple",
+      "initial_timeout": 40.0,
+      "retry_strategy": "linear_backoff",
+      "max_retries": 2,
+      "delay_between_requests": {
+        "min": 1.5,
+        "max": 4.0
+      },
+      "anti_detection": {
+        "rotate_user_agents": true,
+        "randomize_delays": true,
+        "use_proxies": false,
+        "respect_robots_txt": true,
+        "limit_requests_per_minute": 25
+      },
+      "content_extraction": {
+        "use_playwright_for_dynamic": true,
+        "fallback_to_static": false,
+        "extract_patterns": [
+          "job_title",
+          "advertiser_name",
+          "location",
+          "salary_range",
+          "job_description",
+          "classification"
+        ],
+        "clean_html": true,
+        "normalize_text": true
+      },
+      "performance": {
+        "max_concurrent_requests": 4,
+        "cache_responses": true,
+        "cache_ttl_minutes": 90,
+        "compress_responses": true
+      }
+    },
+    
+    "aps": {
+      "crawler_type": "http_fast",
+      "initial_timeout": 30.0,
+      "retry_strategy": "simple_retry",
+      "max_retries": 1,
+      "delay_between_requests": {
+        "min": 1.0,
+        "max": 2.0
+      },
+      "anti_detection": {
+        "rotate_user_agents": false,
+        "randomize_delays": false,
+        "use_proxies": false,
+        "respect_robots_txt": true,
+        "limit_requests_per_minute": 30
+      },
+      "content_extraction": {
+        "use_playwright_for_dynamic": false,
+        "fallback_to_static": true,
+        "extract_patterns": [
+          "job_title",
+          "agency",
+          "location",
+          "classification",
+          "salary",
+          "closing_date"
+        ],
+        "clean_html": true,
+        "normalize_text": true
+      },
+      "performance": {
+        "max_concurrent_requests": 5,
+        "cache_responses": true,
+        "cache_ttl_minutes": 120,
+        "compress_responses": true
+      }
+    },
+    
+    "generic": {
+      "crawler_type": "adaptive",
+      "initial_timeout": 30.0,
+      "retry_strategy": "exponential_backoff",
+      "max_retries": 2,
+      "delay_between_requests": {
+        "min": 1.0,
+        "max": 3.0
+      },
+      "anti_detection": {
+        "rotate_user_agents": true,
+        "randomize_delays": true,
+        "use_proxies": false,
+        "respect_robots_txt": true,
+        "limit_requests_per_minute": 20
+      },
+      "content_extraction": {
+        "use_playwright_for_dynamic": false,
+        "fallback_to_static": true,
+        "extract_patterns": [
+          "job_title",
+          "company",
+          "location",
+          "description"
+        ],
+        "clean_html": true,
+        "normalize_text": true
+      },
+      "performance": {
+        "max_concurrent_requests": 4,
+        "cache_responses": true,
+        "cache_ttl_minutes": 60,
+        "compress_responses": true
+      }
+    }
+  },
+  
+  "crawler_selection_rules": [
+    {
+      "condition": "site_type == 'indeed' OR difficulty == 'hard'",
+      "recommended_crawler": "playwright_stealth",
+      "priority": 1,
+      "reason": "Indeed有较强的反爬机制，需要隐身模式"
+    },
+    {
+      "condition": "site_type == 'seek' OR type == 'dynamic'",
+      "recommended_crawler": "playwright_simple",
+      "priority": 2,
+      "reason": "Seek是动态网站，需要浏览器渲染"
+    },
+    {
+      "condition": "site_type == 'aps' OR type == 'static'",
+      "recommended_crawler": "http_fast",
+      "priority": 3,
+      "reason": "APS是静态网站，HTTP请求足够"
+    },
+    {
+      "condition": "true",
+      "recommended_crawler": "adaptive",
+      "priority": 4,
+      "reason": "默认使用自适应爬取器"
+    }
+  ],
+  
+  "performance_tuning": {
+    "timeout_multipliers": {
+      "http_fast": 1.0,
+      "playwright_simple": 2.0,
+      "playwright_stealth": 3.0,
+      "adaptive": 1.5
+    },
+    "concurrent_limits": {
+      "http_fast": 8,
+      "playwright_simple": 4,
+      "playwright_stealth": 2,
+      "adaptive": 5
+    },
+    "memory_usage_estimates": {
+      "http_fast": "50-100MB",
+      "playwright_simple": "200-400MB",
+      "playwright_stealth": "300-500MB",
+      "adaptive": "150-300MB"
+    }
+  },
+  
+  "error_handling": {
+    "retryable_errors": [
+      "timeout",
+      "connection_error",
+      "http_5xx",
+      "cloudflare_challenge"
+    ],
+    "non_retryable_errors": [
+      "http_404",
+      "http_403",
+      "invalid_content",
+      "parser_error"
+    ],
+    "fallback_strategies": {
+      "playwright_stealth_fails": "try_playwright_simple",
+      "playwright_simple_fails": "try_http_fast",
+      "http_fast_fails": "skip_and_log"
+    }
+  },
+  
+  "monitoring_metrics": {
+    "key_performance_indicators": [
+      "success_rate",
+      "average_response_time",
+      "pages_per_minute",
+      "error_rate",
+      "cache_hit_rate"
+    ],
+    "alert_thresholds": {
+      "success_rate_below": 0.7,
+      "response_time_above_seconds": 10.0,
+      "error_rate_above": 0.3,
+      "memory_usage_above_mb": 500
+    },
+    "reporting_frequency": "per_crawl"
+  },
+  
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-04-15",
+    "description": "网站爬取策略配置 - 深度爬取系统",
+    "author": "Hermes Agent"
+  }
+}
