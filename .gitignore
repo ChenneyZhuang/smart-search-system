@@ -4,3 +4,10 @@ __pycache__/
 *.log
 *.pid
 .DS_Store
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+dist/
+build/

@@ -60,7 +60,11 @@ class PlaywrightSimpleStrategy(CrawlStrategy):
     def __init__(self):
         super().__init__("playwright_simple")
         self.timeout = 25  # 增加超时时间
-        self.script_path = "/Volumes/SSD/skills/playwright-scraper-skill/scripts/playwright-simple.js"
+        self.script_path = os.environ.get(
+            "PLAYWRIGHT_SKILL_DIR", 
+            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 
+                         "..", "skills", "playwright-scraper-skill", "scripts", "playwright-simple.js")
+        )
     
     async def execute(self, url: str) -> CrawlResult:
         start_time = time.time()
@@ -70,7 +74,7 @@ class PlaywrightSimpleStrategy(CrawlStrategy):
             cmd = ["node", self.script_path, url]
             
             # 在playwright目录运行
-            cwd = "/Volumes/SSD/skills/playwright-scraper-skill"
+            cwd = os.path.dirname(self.script_path)
             
             # 异步执行
             process = await asyncio.create_subprocess_exec(
@@ -173,7 +177,11 @@ class PlaywrightStealthStrategy(CrawlStrategy):
     def __init__(self):
         super().__init__("playwright_stealth")
         self.timeout = 35  # 增加超时时间
-        self.script_path = "/Volumes/SSD/skills/playwright-scraper-skill/scripts/playwright-stealth.js"
+        self.script_path = os.environ.get(
+            "PLAYWRIGHT_STEALTH_SKILL_DIR",
+            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 
+                         "..", "skills", "playwright-scraper-skill", "scripts", "playwright-stealth.js")
+        )
     
     async def execute(self, url: str) -> CrawlResult:
         start_time = time.time()
@@ -188,7 +196,7 @@ class PlaywrightStealthStrategy(CrawlStrategy):
             env["WAIT_TIME"] = "5000"
             
             # 在playwright目录运行
-            cwd = "/Volumes/SSD/skills/playwright-scraper-skill"
+            cwd = os.path.dirname(self.script_path)
             
             # 异步执行
             process = await asyncio.create_subprocess_exec(
