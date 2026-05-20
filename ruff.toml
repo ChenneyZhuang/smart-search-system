@@ -3,11 +3,12 @@
 
 [lint]
 ignore = [
-    "F401",   # unused import — 9-phase evolution, cleanup not worth it
+    "F401",   # unused import
     "F403",   # star imports
     "F405",   # undefined from star import
     "F541",   # f-string without placeholders
     "F811",   # redefined function/import
     "F841",   # unused variable
     "E402",   # import not at top
+    "E722",   # bare except (legacy, risky to change)
 ]
